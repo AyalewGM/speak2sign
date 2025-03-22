@@ -1,54 +1,52 @@
-**Speak2Sign** is an AI-powered system that translates **spoken English** into **American Sign Language (ASL)** grammar using a combination of **speech recognition** and **natural language processing**.
+# Speak2Sign
 
-It supports:
-- 🗣️ **Real-time transcription** using Whisper or Vosk
-- 🎤 **Audio or video file uploads**
-- 🧠 **ASL grammar conversion** via a fine-tuned Flan-T5 transformer model
-- 🖼️ **Animated sign visualization** using pre-generated ASL GIFs
+**Speak2Sign** is an AI-powered application that translates live speech or uploaded audio/video into American Sign Language (ASL) in real time. It converts spoken English into grammatically correct ASL (in gloss format) and plays animated sign language visuals word-by-word, allowing deaf or hard-of-hearing users to follow conversations or media in real time.
 
 ---
 
-## 🚀 Features
+## What the Program Does
 
-- 🔊 Live or recorded audio input
-- ✍️ Converts English into ASL gloss (grammar)
-- 🤖 Fine-tuned Flan-T5 model for grammar transformation
-- 🎞️ Visual sign animation (GIF-based, easily extendable)
-- 🌐 Clean web UI (Bootstrap + Flask)
-- ⚡ GPU-supported training & inference
+- Transcribes live speech through a microphone or processes uploaded audio/video files.
+- Uses advanced speech recognition models (Whisper or Vosk) to convert speech to English.
+- Translates English into ASL grammar using a fine-tuned Flan-T5 transformer model.
+- Displays ASL word-by-word as animations using a collection of GIFs.
+- Provides an accessible visual communication tool for following spoken content.
 
----
-
-## 🧠 How It Works
-
-1. **Speech Transcription**: Converts live or uploaded audio into English using Whisper/Vosk.
-2. **ASL Grammar Converter**: Translates English to ASL grammar using a fine-tuned Flan-T5 model.
-3. **Animation Display**: Displays word-by-word ASL sign GIFs in the web interface.
+This project is especially useful for:
+- Real-time ASL interpretation during conversations or presentations.
+- Assisting with accessibility in digital content.
+- Building educational tools for ASL learners or interpreters.
 
 ---
 
-## 📁 Project Structure
+## Example Use Case
 
-```
-speak2sign/
-├── training/                   # Fine-tuning script for Flan-T5
-├── inference/                 # Inference pipeline and model comparison
-├── data/                      # ASL dataset (from ASLG-PC12 or custom)
-├── scripts/                   # Dataset scraping and formatting
-├── bart_model/                # Your previous BART-based pipeline
-├── models/asl_flan_t5/        # Saved fine-tuned model
-├── static/asl_animations/     # ASL GIFs
-├── templates/index.html       # Bootstrap frontend
-├── app.py                     # Flask app for UI + API
-├── requirements.txt
-└── README.md
-```
+Imagine a deaf student attending a live lecture. Speak2Sign listens to the instructor, transcribes their speech, converts it to ASL grammar, and plays sign animations in real time—helping the student follow the class without needing a live interpreter.
 
 ---
 
-## 🔧 Installation
+## Features
 
-### ✅ Prerequisites
+- Live or recorded audio input
+- Converts English into ASL gloss (grammar)
+- Fine-tuned Flan-T5 model for grammar transformation
+- Visual sign animation (GIF-based, easily extendable)
+- Clean web UI (Bootstrap + Flask)
+- GPU-supported training and inference
+
+---
+
+## How It Works
+
+1. Speech Transcription: Converts live or uploaded audio into English using Whisper or Vosk.
+2. ASL Grammar Conversion: Translates English to ASL grammar using a fine-tuned Flan-T5 model.
+3. Animation Display: Displays word-by-word ASL sign GIFs in the web interface.
+
+---
+
+## Installation
+
+### Prerequisites
 
 - Python 3.8+
 - pip
@@ -56,44 +54,46 @@ speak2sign/
 
 ---
 
-### 📦 Set up environment
+### Set Up Environment
 
 ```bash
-# 1. Clone the repo
+# Clone the repo
 git clone https://github.com/YOUR_USERNAME/speak2sign.git
 cd speak2sign
 
-# 2. Create virtual environment (optional but recommended)
+# Create virtual environment (optional)
 python -m venv env
 source env/bin/activate       # On Windows: env\Scripts\activate
 
-# 3. Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 ```
 
 ---
 
-### 🔡 Download and Prepare the Dataset
+### Download and Prepare the Dataset
 
 ```bash
 python scripts/prepare_aslg_pc12.py
 ```
+
 This script will:
 - Download the ASLG-PC12 dataset
 - Format it into `data/asl_data.csv`
 
 ---
 
-### 🧠 Fine-tune the Flan-T5 Model
+### Fine-Tune the Flan-T5 Model
 
 ```bash
 python training/train_flan_t5_asl.py
 ```
+
 The model will be saved to `models/asl_flan_t5/`
 
 ---
 
-### 🧪 Run Side-by-Side Comparison (BART vs Flan-T5)
+### Compare with BART
 
 ```bash
 python inference/compare_models.py
@@ -101,7 +101,7 @@ python inference/compare_models.py
 
 ---
 
-### 🌐 Run the Web App
+### Run the Web App
 
 ```bash
 python app.py
@@ -111,50 +111,31 @@ Then open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
 
 ---
 
-## 🖼️ ASL GIFs
+## ASL GIFs
 
 - Save your ASL sign animations (e.g., `hello.gif`, `thank_you.gif`) in:
 ```
 static/asl_animations/
 ```
-- Filenames must match the ASL gloss words in your model output.
+
+Filenames must match the ASL gloss words in your model output.
 
 ---
 
-## 🧪 Example Inputs/Outputs
+## Acknowledgements
 
-| English (Input)             | ASL Gloss Output         |
-|-----------------------------|--------------------------|
-| What is your name?          | YOUR NAME WHAT           |
-| I am going to the store.    | I GO STORE               |
-| Can you help me?            | YOU HELP ME CAN          |
+- ASLG-PC12 Dataset: https://achrafothman.net
+- Flan-T5 Model (Google): https://huggingface.co/google/flan-t5-base
+- Whisper (OpenAI): https://github.com/openai/whisper
 
 ---
 
-## 🛠️ Tech Stack
-
-- 🤖 Transformers: `google/flan-t5-base`
-- 🔊 Whisper / Vosk for audio transcription
-- 🧪 Hugging Face Datasets + Trainer
-- 🖥️ Flask + Bootstrap frontend
-- ⚙️ Torch, SentencePiece, Pandas
-
----
-
-## 🙌 Acknowledgements
-
-- [ASLG-PC12 Dataset](https://achrafothman.net)
-- [Flan-T5 Model (Google)](https://huggingface.co/google/flan-t5-base)
-- [Whisper Speech-to-Text (OpenAI)](https://github.com/openai/whisper)
-
----
-
-## 📜 License
+## License
 
 This project is MIT licensed. Please credit datasets and models used in your own deployments.
 
 ---
 
-## 💬 Questions or Contributions?
+## Questions or Contributions?
 
-Feel free to open an issue or PR. Contributions are welcome!
+Feel free to open an issue or pull request. Contributions are welcome!
